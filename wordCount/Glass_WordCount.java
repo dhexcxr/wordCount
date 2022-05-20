@@ -8,14 +8,17 @@ package wordCount;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 public class Glass_WordCount {
 
 	public static void main(String[] args) {
 
-		getFile(args);
-		countWords();
-		displayResults();
+		File input = getFile(args);
+		Map<String, Integer> results = countWords(input);
+		displayResults(results);
 		
 	}
 
@@ -37,14 +40,40 @@ public class Glass_WordCount {
 		return input;
 	}
 	
-	private static void countWords() {
+	private static Map<String, Integer> countWords(File input) {
 		System.out.println("We're reading the file");
 		
+		Map<String, Integer> results = new HashMap<>();
+		
+		try {
+			Scanner inputScanner = new Scanner(input);
+			while (inputScanner.hasNext()) {
+				String string = (inputScanner.next()).replaceAll("[^ a-zA-Z]", "");
+
+				
+				results.merge(string, 1, (k, v) -> v + 1);
+				
+				// SLOW WAY
+//				if (results.containsKey(string)) {
+//					results.put(string, results.get(string) + 1);
+//				} else {
+//					results.put(string, 1);
+//				}
+				
+//				results.computeIfPresent(string, (k, v) -> v + 1);
+//				results.computeIfAbsent(string, k -> 1);
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		// count word occurrences
+		return results;
 		
 	}
 	
-	private static void displayResults() {
+	private static void displayResults(Map<String, Integer> results) {
 		System.out.println("We're sorting the results");
 		
 		// sort results
