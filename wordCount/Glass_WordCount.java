@@ -34,12 +34,7 @@ public class Glass_WordCount {
 
 		// ask again if file not found
 		
-//		File input = new File("wordCount/Macbeth_ Entire_Play.html");
 		File input = new File("wordCount/macbeth.txt");
-//		File dir = new File(".");
-//		for (String filename : dir.list()) {
-//			System.out.println(filename);
-//		}
 		
 		return input;
 	}
@@ -48,58 +43,20 @@ public class Glass_WordCount {
 		System.out.println("We're reading the file");
 		
 		Map<String, Integer> results = new HashMap<>();
-		
-//		Scanner inputScanner = new Scanner(stripHtml(input));
-//		
-//		while (inputScanner.hasNext()) {
-//			String string = (inputScanner.next()).replaceAll("[^ a-zA-Z]", "");
-//
-//			
-//			results.merge(string, 1, (k, v) -> v + 1);
-//		}
 
-		try {
-			Scanner inputScanner = new Scanner(input);
+		// count word occurrences
+		try (Scanner inputScanner = new Scanner(input)) {
 			while (inputScanner.hasNext()) {
-				String string = (inputScanner.next()).replaceAll("[^ a-zA-Z]", "");
+				// TODO change regex to not remove ' in the middle of words, or something
+				String string = (inputScanner.next()).replaceAll("[^ a-zA-Z]", "").toLowerCase();
 
-				
-				results.merge(string, 1, (k, v) -> v + 1);
-				
-				// SLOW WAY
-//				if (results.containsKey(string)) {
-//					results.put(string, results.get(string) + 1);
-//				} else {
-//					results.put(string, 1);
-//				}
-				
-//				results.computeIfPresent(string, (k, v) -> v + 1);
-//				results.computeIfAbsent(string, k -> 1);
+				results.merge(string, 1, (k, v) -> k + v);
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		// count word occurrences
-		return results;
-		
-	}
-	
-	private static String stripHtml(File input) {
-		
-		StringBuilder htmlInput = new StringBuilder();
-		
-		try (BufferedReader htmlBuffer = new BufferedReader(new FileReader(input))) {
-			String nextLine;
-			while ((nextLine = htmlBuffer.readLine()) != null) {
-				htmlInput.append(nextLine);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return htmlInput.toString().replaceAll("\\<.*?>", "");
+		return results;	
 	}
 	
 	private static void displayResults(Map<String, Integer> results) {
