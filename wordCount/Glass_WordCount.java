@@ -6,6 +6,9 @@
 
 package wordCount;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
 public class Glass_WordCount {
 
 	public static void main(String[] args) {
@@ -16,7 +19,7 @@ public class Glass_WordCount {
 		
 	}
 
-	private static void getFile(String[] args) {
+	private static File getFile(String[] args) {
 		System.out.println("We're getting the file");
 		
 		// read file from command line arg
@@ -24,6 +27,14 @@ public class Glass_WordCount {
 		// if no file on command line, ask user for file name
 
 		// ask again if file not found
+		
+		File input = new File("wordCount/Macbeth_ Entire_Play.html");
+//		File dir = new File(".");
+//		for (String filename : dir.list()) {
+//			System.out.println(filename);
+//		}
+		
+		return input;
 	}
 	
 	private static void countWords() {
