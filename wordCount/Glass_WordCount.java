@@ -6,8 +6,11 @@
 
 package wordCount;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -31,7 +34,8 @@ public class Glass_WordCount {
 
 		// ask again if file not found
 		
-		File input = new File("wordCount/Macbeth_ Entire_Play.html");
+//		File input = new File("wordCount/Macbeth_ Entire_Play.html");
+		File input = new File("wordCount/macbeth.txt");
 //		File dir = new File(".");
 //		for (String filename : dir.list()) {
 //			System.out.println(filename);
@@ -45,6 +49,15 @@ public class Glass_WordCount {
 		
 		Map<String, Integer> results = new HashMap<>();
 		
+//		Scanner inputScanner = new Scanner(stripHtml(input));
+//		
+//		while (inputScanner.hasNext()) {
+//			String string = (inputScanner.next()).replaceAll("[^ a-zA-Z]", "");
+//
+//			
+//			results.merge(string, 1, (k, v) -> v + 1);
+//		}
+
 		try {
 			Scanner inputScanner = new Scanner(input);
 			while (inputScanner.hasNext()) {
@@ -71,6 +84,22 @@ public class Glass_WordCount {
 		// count word occurrences
 		return results;
 		
+	}
+	
+	private static String stripHtml(File input) {
+		
+		StringBuilder htmlInput = new StringBuilder();
+		
+		try (BufferedReader htmlBuffer = new BufferedReader(new FileReader(input))) {
+			String nextLine;
+			while ((nextLine = htmlBuffer.readLine()) != null) {
+				htmlInput.append(nextLine);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return htmlInput.toString().replaceAll("\\<.*?>", "");
 	}
 	
 	private static void displayResults(Map<String, Integer> results) {
