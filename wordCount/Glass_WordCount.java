@@ -49,7 +49,9 @@ public class Glass_WordCount {
 		try (Scanner inputScanner = new Scanner(input)) {
 			while (inputScanner.hasNext()) {
 				// TODO change regex to not remove ' in the middle of words, or something
-				String string = (inputScanner.next()).replaceAll("[^ a-zA-Z]", "").toLowerCase();
+//				String string = (inputScanner.next()).replaceAll("^(\')[^ a-zA-Z\']", "").toLowerCase();
+				String string = (inputScanner.next()).replaceAll("^'|[^- a-zA-Z']|[-']$", "").toLowerCase();
+//				String string = (inputScanner.next()).replaceAll("^\\'", "").replaceAll("[^ a-zA-Z\']", "").toLowerCase();
 
 				results.merge(string, 1, (k, v) -> k + v);
 			}
