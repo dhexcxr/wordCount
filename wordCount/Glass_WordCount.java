@@ -13,6 +13,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Glass_WordCount {
+	
+	static final String DEFAULT_FILE = "macbeth.txt";
 
 	public static void main(String[] args) {
 
@@ -26,12 +28,14 @@ public class Glass_WordCount {
 		System.out.println("We're getting the file");
 		
 		// read file from command line arg
-
-		// if no file on command line, ask user for file name
-
-		// ask again if file not found
+		if (args.length != 0) {
+			// if no file on command line, ask user for file name
+			
+			// ask again if file not found
+			
+		}
 		
-		File input = new File("wordCount/macbeth.txt");
+		File input = new File(DEFAULT_FILE);
 		
 		return input;
 	}
