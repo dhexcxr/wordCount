@@ -54,18 +54,13 @@ public class Glass_WordCount {
 	}
 	
 	private static Map<String, Integer> countWords(File input) {
-		System.out.println("We're reading the file");
-		
 		Map<String, Integer> results = new HashMap<>();
 
 		// count word occurrences
 		try (Scanner inputScanner = new Scanner(input)) {
 			while (inputScanner.hasNext()) {
-				// TODO change regex to not remove ' in the middle of words, or something
-//				String string = (inputScanner.next()).replaceAll("^(\')[^ a-zA-Z\']", "").toLowerCase();
-				String string = (inputScanner.next()).replaceAll("^'|[^- a-zA-Z']|[-']$", "").toLowerCase();
-//				String string = (inputScanner.next()).replaceAll("^\\'", "").replaceAll("[^ a-zA-Z\']", "").toLowerCase();
-
+											// strip punctuation from the strings we scan from the file
+				String string = (inputScanner.next()).replaceAll("(?:^')|[^- a-zA-Z']|(?:[-']$)", "").toLowerCase();
 				results.merge(string, 1, (k, v) -> k + v);
 			}
 		} catch (FileNotFoundException e) {
