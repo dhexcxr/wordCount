@@ -72,16 +72,30 @@ public class Glass_WordCount {
 	
 	private static void displayResults(Map<String, Integer> results) {
 		System.out.println("We're sorting the results");
-		
+				
 		// sort results
 		List<Entry<String, Integer>> sortedResults = new ArrayList<>(results.entrySet());
 		sortedResults.sort(Entry.comparingByValue());
 		
-		// display results
-		for (int i = sortedResults.size() - 1; i >= sortedResults.size() - 20; i--) {
-			System.out.println(sortedResults.get(i));
+		// get the numbner of words the user wants to display
+		int count;
+		System.out.print("How many of the top words would you like to display? ");
+		String keyInput = keyboard.nextLine();
+		if (keyInput.length() == 0 || keyInput.matches("[^0-9]+")) {
+			System.out.println("Input error. Using default count of 20.");
+			count = 20;
+		} else {
+			try {
+				count = Integer.parseInt(keyInput);
+			} catch (Exception e) {
+				System.out.println("Input error. Using default count of 20.");
+				count = 20;
+			}
 		}
 		
+		// display results
+		for (int i = sortedResults.size() - 1; i >= sortedResults.size() - count; i--) {
+			System.out.println(sortedResults.get(i));
+		}	
 	}
-
 }
