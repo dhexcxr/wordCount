@@ -31,19 +31,26 @@ public class Glass_WordCount {
 	}
 
 	private static File getFile(String[] args) {
-		System.out.println("We're getting the file");
+		File inputFile;
 		
-		// read file from command line arg
 		if (args.length != 0) {
+			// read file from command line args
+			inputFile = new File(args[0]);			
+		} else {
 			// if no file on command line, ask user for file name
+			System.out.print("Enter file name to count words: ");
 			
-			// ask again if file not found
+			String keyInput = keyboard.nextLine();
+			inputFile = new File(keyInput);
 			
+			// if we cannot find the file the user entered use default file
+			if (!inputFile.exists()) {
+				System.out.println("Unable to find file: " + inputFile);
+				System.out.println("Using default file: " + DEFAULT_FILE);
+				inputFile = new File(DEFAULT_FILE);
+			}
 		}
-		
-		File input = new File(DEFAULT_FILE);
-		
-		return input;
+		return inputFile;
 	}
 	
 	private static Map<String, Integer> countWords(File input) {
