@@ -8,8 +8,11 @@ package wordCount;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 public class Glass_WordCount {
@@ -66,8 +69,13 @@ public class Glass_WordCount {
 		System.out.println("We're sorting the results");
 		
 		// sort results
+		List<Entry<String, Integer>> sortedResults = new ArrayList<>(results.entrySet());
+		sortedResults.sort(Entry.comparingByValue());
 		
 		// display results
+		for (int i = sortedResults.size() - 1; i >= sortedResults.size() - 20; i--) {
+			System.out.println(sortedResults.get(i));
+		}
 		
 	}
 
