@@ -38,13 +38,16 @@ public class Glass_WordCount {
 			inputFile = new File(args[0]);			
 		} else {
 			// if no file on command line, ask user for file name
-			System.out.print("Enter file name to count words: ");
+			System.out.print("Enter file name to count words ([Enter] for default macbeth.txt): ");
 			
 			String keyInput = keyboard.nextLine();
 			inputFile = new File(keyInput);
 			
 			// if we cannot find the file the user entered use default file
-			if (!inputFile.exists()) {
+			if (inputFile.length() == 0) {
+				System.out.println("Using default file: " + DEFAULT_FILE);
+				inputFile = new File(DEFAULT_FILE);
+			} else if (!inputFile.exists()) {
 				System.out.println("Unable to find file: " + inputFile);
 				System.out.println("Using default file: " + DEFAULT_FILE);
 				inputFile = new File(DEFAULT_FILE);
@@ -78,16 +81,16 @@ public class Glass_WordCount {
 		
 		// get the number of words the user wants to display
 		int count;
-		System.out.print("How many of the top words would you like to display? ");
+		System.out.print("How many of the top words would you like to display ([Enter] for all)? ");
 		String keyInput = keyboard.nextLine();
 		if (keyInput.length() == 0 || keyInput.matches("[^0-9]+")) {
-			System.out.println("Input error. Using default count of 20.");
-			count = 20;
+			System.out.println("Showing all words.");
+			count = sortedResults.size();
 		} else {
 			try {
 				count = Integer.parseInt(keyInput);
 			} catch (Exception e) {
-				System.out.println("Input error. Using default count of 20.");
+				System.out.println("Input error. Showing 20 words.");
 				count = 20;
 			}
 		}
