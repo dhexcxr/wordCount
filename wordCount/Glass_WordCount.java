@@ -71,13 +71,12 @@ public class Glass_WordCount {
 	}
 	
 	private static void displayResults(Map<String, Integer> results) {
-		System.out.println("We're sorting the results");
 				
 		// sort results
 		List<Entry<String, Integer>> sortedResults = new ArrayList<>(results.entrySet());
 		sortedResults.sort(Entry.comparingByValue());
 		
-		// get the numbner of words the user wants to display
+		// get the number of words the user wants to display
 		int count;
 		System.out.print("How many of the top words would you like to display? ");
 		String keyInput = keyboard.nextLine();
