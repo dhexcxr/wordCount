@@ -10,12 +10,40 @@ import org.junit.jupiter.api.Test;
 
 class WordCountTest {
 	
+	// TODO see if we can turn these into new File and not Strings
 	static final String DEFAULT_TEST_FILE = "testFile.txt";
+	static final String DEFAULT_FILE = "macbeth.txt";
 
 	@Test
 	void getFileFromCmdArgsTest() {
+		// test file name input from command line argument 
 		String[] testArgs = {"testFile.txt"};
+		File testInputFile = new File(DEFAULT_TEST_FILE);
+		File returnedFile = Glass_WordCount.getFile(testArgs);
+		assertTrue(testInputFile.equals(returnedFile));
+	}
+	
+	@Test
+	void getFileFromInputFileFoundTest() {
+		// test file name input via user keyboard input
+		String[] testArgs = new String[0];
 		File inputFile = new File(DEFAULT_TEST_FILE);
+		
+		// TODO setup keyboard inputs via InputStream
+		
+		File returnedFile = Glass_WordCount.getFile(testArgs);
+		assertTrue(inputFile.equals(returnedFile));
+	}
+	
+	@Test
+	void getFileFromInputFileNotFoundTest() {
+		// test file name input via user keyboard input where the user's input is not found
+		// and we load the default file
+		String[] testArgs = new String[0];
+		File inputFile = new File(DEFAULT_FILE);
+		
+		// TODO setup keyboard inputs via InputStream
+		
 		File returnedFile = Glass_WordCount.getFile(testArgs);
 		assertTrue(inputFile.equals(returnedFile));
 	}
