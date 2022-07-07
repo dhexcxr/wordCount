@@ -30,7 +30,7 @@ public class Glass_WordCount {
 		keyboard.close();
 	}
 
-	private static File getFile(String[] args) {
+	protected static File getFile(String[] args) {
 		File inputFile;
 		
 		if (args.length != 0) {
@@ -56,7 +56,7 @@ public class Glass_WordCount {
 		return inputFile;
 	}
 	
-	private static Map<String, Integer> countWords(File input) {
+	protected static Map<String, Integer> countWords(File input) {
 		Map<String, Integer> results = new HashMap<>();
 
 		// count word occurrences
@@ -73,7 +73,7 @@ public class Glass_WordCount {
 		return results;	
 	}
 	
-	private static void displayResults(Map<String, Integer> results) {
+	protected static void displayResults(Map<String, Integer> results) {
 				
 		// sort results
 		List<Entry<String, Integer>> sortedResults = new ArrayList<>(results.entrySet());
