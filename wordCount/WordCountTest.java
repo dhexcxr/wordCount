@@ -2,13 +2,20 @@ package wordCount;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.File;
+
 import org.junit.jupiter.api.Test;
 
 class WordCountTest {
+	
+	static final String DEFAULT_TEST_FILE = "testFile.txt";
 
 	@Test
-	void openFileTest() {
-		fail("Not yet implemented");
+	void getFileFromCmdArgsTest() {
+		String[] testArgs = {"testFile.txt"};
+		File inputFile = new File(DEFAULT_TEST_FILE);
+		File returnedFile = Glass_WordCount.getFile(testArgs);
+		assertTrue(inputFile.equals(returnedFile));
 	}
 	
 	@Test
