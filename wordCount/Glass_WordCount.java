@@ -90,12 +90,24 @@ public class Glass_WordCount {
 			System.out.println("Showing all words.");
 			count = sortedResults.size();
 		} else {
+			String message;
+			
 			try {
 				count = Integer.parseInt(keyInput);
+				message = "Showing " + count + " words.";
 			} catch (Exception e) {
-				System.out.println("Input error. Showing 20 words.");
+				message = "Input error. Showing 20 words.";
 				count = 20;
 			}
+			
+			// if count is larger than
+			
+			if (count > sortedResults.size()) {
+				message = "Input error. Showing all words.";
+				count = sortedResults.size();
+			}
+			
+			System.out.println(message);
 		}
 		
 		// display results
