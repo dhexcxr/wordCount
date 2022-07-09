@@ -46,12 +46,16 @@ public class Glass_WordCount {
 			if (inputFile.length() == 0) {
 				System.out.println("Using default file: " + DEFAULT_FILE);
 				inputFile = new File(DEFAULT_FILE);
-			} else if (!inputFile.exists()) {
-				System.out.println("Unable to find file: " + inputFile);
-				System.out.println("Using default file: " + DEFAULT_FILE);
-				inputFile = new File(DEFAULT_FILE);
 			}
 		}
+		
+		// make sure file exists
+		if (!inputFile.exists()) {
+			System.out.println("Unable to find file: " + inputFile);
+			System.out.println("Using default file: " + DEFAULT_FILE);
+			inputFile = new File(DEFAULT_FILE);
+		}
+		
 		return inputFile;
 	}
 	
