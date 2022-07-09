@@ -123,14 +123,77 @@ class WordCountTest {
 		expectedResults.put("ten", 1);
 		expectedResults.put("words", 1);
 		expectedResults.put("here", 1);
-		
+
+		// run test
 		Map<String, Integer> testResults = Glass_WordCount.countWords(inputFile);
 		assertEquals(expectedResults, testResults);
 	}
-	
+
 	@Test
-	void displayResultsTest() {
-		fail("Not yet implemented");
+	void displayTop3ResultsTest() {
+		
+		// setup user input
+		testInputScanner = new Scanner(new ByteArrayInputStream(("3\n").getBytes()));
+
+		// run test
+		Glass_WordCount.displayResults(UNSORTED_MAP, testInputScanner);
+
+		// get results from byteArrayOutputStream
+		String output = getTrimmedResults();
+
+		assertEquals(output, "Showing 3 words.\r\n"
+				+ "a=5\r\n"
+				+ "ten=3\r\n"
+				+ "f=2");	
+	}
+
+	@Test
+	void displayAllResultsTest() {
+
+		testInputScanner = new Scanner(new ByteArrayInputStream(("\n").getBytes()));
+
+		// run test
+		Glass_WordCount.displayResults(UNSORTED_MAP, testInputScanner);
+
+		// get results from byteArrayOutputStream
+		String output = getTrimmedResults();
+
+		assertEquals(output, "Showing all words.\r\n"
+				+ "a=5\r\n"
+				+ "ten=3\r\n"
+				+ "f=2\r\n"
+				+ "words=1\r\n"
+				+ "g=1\r\n"
+				+ "d=1\r\n"
+				+ "here=1");
+	}
+
+	@Test
+	void display20ResultsInvalidInputTest() {
+
+		// simulate user input
+		testInputScanner = new Scanner(new ByteArrayInputStream(("gg\n").getBytes()));
+
+		// run test
+		Glass_WordCount.displayResults(UNSORTED_MAP, testInputScanner);
+
+		// get results from byteArrayOutputStream
+		String output = getTrimmedResults();
+
+		assertEquals(output, "Input error. Showing all words.\r\n"
+				+ "a=5\r\n"
+				+ "ten=3\r\n"
+				+ "f=2\r\n"
+				+ "words=1\r\n"
+				+ "g=1\r\n"
+				+ "d=1\r\n"
+				+ "here=1");
+	}
+	
+	String getTrimmedResults() {
+		String key = "?";
+		String outputText = byteArrayOutputStream.toString();
+		return outputText.substring(outputText.indexOf(key) + key.length()).trim();
 	}
 
 }
