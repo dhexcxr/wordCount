@@ -3,20 +3,53 @@ package wordCount;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class WordCountTest {
-	
-	static final String DEFAULT_TEST_FILE = "testFile.txt";
-	static final String DEFAULT_FILE = "macbeth.txt";
-	static final String TEST_FILE_NOT_FOUND = "notTheRightFile.txt";
-	Scanner testInputScanner = new Scanner(System.in);
 
+	private static final String DEFAULT_TEST_FILE = "testFile.txt";
+	private static final String DEFAULT_FILE = "macbeth.txt";
+	private static final String TEST_FILE_NOT_FOUND = "notTheRightFile.txt";
+	private static Scanner testInputScanner = new Scanner(System.in);
+	
+	private static final Map<String, Integer> UNSORTED_MAP;
+	static {
+		UNSORTED_MAP = new HashMap<>();
+		UNSORTED_MAP.put("a", 5);
+		UNSORTED_MAP.put("d", 1);
+		UNSORTED_MAP.put("f", 2);
+		UNSORTED_MAP.put("g", 1);
+		UNSORTED_MAP.put("ten", 3);
+		UNSORTED_MAP.put("words", 1);
+		UNSORTED_MAP.put("here", 1);
+	}
+	
+	private static ByteArrayOutputStream byteArrayOutputStream;
+	private static PrintStream ps;
+	private static PrintStream stdout;
+	
+	@BeforeEach
+	void setupOutputCapture() {
+		byteArrayOutputStream = new ByteArrayOutputStream();
+		ps = new PrintStream(byteArrayOutputStream);
+		stdout = System.out;
+		System.setOut(ps);
+	}
+
+	@AfterEach
+	void resetOutputToDefault() {
+		System.setOut(stdout);
+	}
+	
 	@Test
 	void getFileFromCmdArgsTest() {
 		// test file name input from command line argument 
