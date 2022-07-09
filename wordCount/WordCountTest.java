@@ -116,8 +116,7 @@ class WordCountTest {
 	void countWordsTest() {
 		File inputFile = new File(DEFAULT_TEST_FILE);
 		Map<String, Integer> expectedResults = new HashMap<>();
-		expectedResults.put("a", 2);
-		expectedResults.put("b", 1);
+		expectedResults.put("a", 3);
 		expectedResults.put("d", 1);
 		expectedResults.put("f", 2);
 		expectedResults.put("g", 1);
