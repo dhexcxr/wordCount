@@ -18,19 +18,18 @@ import java.util.Scanner;
 public class Glass_WordCount {
 	
 	static final String DEFAULT_FILE = "macbeth.txt";
-	static Scanner keyboard;
 
 	public static void main(String[] args) {
-		keyboard = new Scanner(System.in);
+		Scanner keyboard = new Scanner(System.in);
 		
-		File input = getFile(args);
+		File input = getFile(args, keyboard);
 		Map<String, Integer> results = countWords(input);
-		displayResults(results);
+		displayResults(results, keyboard);
 		
 		keyboard.close();
 	}
 
-	protected static File getFile(String[] args) {
+	protected static File getFile(String[] args, Scanner keyboard) {
 		File inputFile;
 		
 		if (args.length != 0) {
@@ -73,7 +72,7 @@ public class Glass_WordCount {
 		return results;	
 	}
 	
-	protected static void displayResults(Map<String, Integer> results) {
+	protected static void displayResults(Map<String, Integer> results, Scanner keyboard) {
 				
 		// sort results
 		List<Entry<String, Integer>> sortedResults = new ArrayList<>(results.entrySet());
