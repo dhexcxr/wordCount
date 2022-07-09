@@ -17,7 +17,7 @@ class WordCountTest {
 	@Test
 	void getFileFromCmdArgsTest() {
 		// test file name input from command line argument 
-		String[] testArgs = {"testFile.txt"};
+		String[] testArgs = {DEFAULT_TEST_FILE};
 		File testInputFile = new File(DEFAULT_TEST_FILE);
 		File returnedFile = Glass_WordCount.getFile(testArgs);
 		assertTrue(testInputFile.equals(returnedFile));
