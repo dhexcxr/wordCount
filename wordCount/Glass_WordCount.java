@@ -86,7 +86,7 @@ public class Glass_WordCount {
 		int count;
 		System.out.print("How many of the top words would you like to display ([Enter] for all)? ");
 		String keyInput = keyboard.nextLine();
-		if (keyInput.length() == 0 || keyInput.matches("[^0-9]+")) {
+		if (keyInput.length() == 0) {
 			System.out.println("Showing all words.");
 			count = sortedResults.size();
 		} else {
