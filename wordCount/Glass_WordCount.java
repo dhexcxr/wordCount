@@ -1,6 +1,7 @@
 //Author Name: M. Corey Glass
 //Date: 5.19.22
-//Program Name: WroneController
+//Modified: 7.9.22
+//Program Name: wordCount
 //Class Name: Glass_WordCount
 //Purpose: count words in supplied file, display the words sorted from most frequent to least
 
