@@ -2,24 +2,39 @@ package wordCount;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 import org.junit.jupiter.api.Test;
 
 class WordCountTest {
 	
-	// TODO see if we can turn these into new File and not Strings
 	static final String DEFAULT_TEST_FILE = "testFile.txt";
 	static final String DEFAULT_FILE = "macbeth.txt";
+	static final String TEST_FILE_NOT_FOUND = "notTheRightFile.txt";
+	Scanner testInputScanner = new Scanner(System.in);
 
 	@Test
 	void getFileFromCmdArgsTest() {
 		// test file name input from command line argument 
 		String[] testArgs = {DEFAULT_TEST_FILE};
 		File testInputFile = new File(DEFAULT_TEST_FILE);
-		File returnedFile = Glass_WordCount.getFile(testArgs);
+		
+		File returnedFile = Glass_WordCount.getFile(testArgs, testInputScanner);
+		assertTrue(testInputFile.equals(returnedFile));
+	}
+	
+	@Test
+	void getFileNotFoundFromCmdArgsTest() {
+		// test file name input from command line argument where the user's input is not found
+		// and we load the default file
+		String[] testArgs = {TEST_FILE_NOT_FOUND};
+		File testInputFile = new File(DEFAULT_FILE);
+		
+		File returnedFile = Glass_WordCount.getFile(testArgs, testInputScanner);
 		assertTrue(testInputFile.equals(returnedFile));
 	}
 	
@@ -29,9 +44,10 @@ class WordCountTest {
 		String[] testArgs = new String[0];
 		File inputFile = new File(DEFAULT_TEST_FILE);
 		
-		// TODO setup keyboard inputs via InputStream
+		// simulate user input
+		testInputScanner = new Scanner(new ByteArrayInputStream((DEFAULT_TEST_FILE + "\n").getBytes()));
 		
-		File returnedFile = Glass_WordCount.getFile(testArgs);
+		File returnedFile = Glass_WordCount.getFile(testArgs, testInputScanner);
 		assertTrue(inputFile.equals(returnedFile));
 	}
 	
@@ -41,10 +57,25 @@ class WordCountTest {
 		// and we load the default file
 		String[] testArgs = new String[0];
 		File inputFile = new File(DEFAULT_FILE);
+
+		// simulate user input
+		testInputScanner = new Scanner(new ByteArrayInputStream((TEST_FILE_NOT_FOUND + "\n").getBytes()));
 		
-		// TODO setup keyboard inputs via InputStream
+		File returnedFile = Glass_WordCount.getFile(testArgs, testInputScanner);
+		assertTrue(inputFile.equals(returnedFile));
+	}
+	
+	@Test
+	void getFileFromInputChooseDefaultTest() {
+		// test file name input via user keyboard input where the user's input is not found
+		// and we load the default file
+		String[] testArgs = new String[0];
+		File inputFile = new File(DEFAULT_FILE);
+
+		// simulate user input
+		testInputScanner = new Scanner(new ByteArrayInputStream(("\n").getBytes()));
 		
-		File returnedFile = Glass_WordCount.getFile(testArgs);
+		File returnedFile = Glass_WordCount.getFile(testArgs, testInputScanner);
 		assertTrue(inputFile.equals(returnedFile));
 	}
 	
