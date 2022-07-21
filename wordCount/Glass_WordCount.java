@@ -16,10 +16,26 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Scanner;
 
+
+/**
+ * Counts words from a text file. User can input filename on command line or interactively.
+ * Words are stripped of leading and trailing punctuation, counted and stored in a Map,
+ * then sorted. The user is asked how many of the top appearing words they would like displayed.
+ * Those are then printed to System.out.
+ *  
+ */
 public class Glass_WordCount {
 	
+	/**
+	 * Default filename if user's inputted filename is not found.
+	 */
 	static final String DEFAULT_FILE = "macbeth.txt";
 
+	/**
+	 * Used to setup file and keyboard input, and coordinate the counting functions
+	 * 
+	 * @param args - String[], program command line arguments, user can specify filename of text file to count words from 
+	 */
 	public static void main(String[] args) {
 		Scanner keyboard = new Scanner(System.in);
 		
@@ -30,6 +46,17 @@ public class Glass_WordCount {
 		keyboard.close();
 	}
 
+	/**
+	 * Opens the file the user wants to count words from.
+	 * Gets the file from the command line arguments if the user supplied them there.
+	 * If not, we then ask the user to type in a filename. If we cannot find the filename
+	 * provided on the command line or that the user types in we use a default file.
+	 * 
+	 * @param args - String[], program command line arguments, might include the filename the user provided on the command line
+	 * @param keyboard - Scanner, for keyboard input
+	 * 
+	 * @return return the file we found in a File object
+	 */
 	protected static File getFile(String[] args, Scanner keyboard) {
 		File inputFile;
 		
@@ -60,6 +87,16 @@ public class Glass_WordCount {
 		return inputFile;
 	}
 	
+	/**
+	 * Counts words from text File input.
+	 * Opens Scanner on File input. While there is still more input to Scanner, we strip leading and trailing punctuation,
+	 * set the string to lower case, and add the string to the results Map. If the string is already in the map,
+	 * we increase the Map key value by 1.
+	 * 
+	 * @param input - File, contains file to count words from
+	 * 
+	 * @return return a Map containing each word found as the key and the count of that word as the value
+	 */
 	protected static Map<String, Integer> countWords(File input) {
 		Map<String, Integer> results = new HashMap<>();
 
@@ -77,6 +114,14 @@ public class Glass_WordCount {
 		return results;	
 	}
 	
+	/**
+	 * Display word counts on screen.
+	 * Puts the result Map's EntrySet into an array, then sorts on EntrySet value.
+	 * Allows the user to specify how many of the top words they would like to see.
+	 * 
+	 * @param results - Map<String, Integer>, contains found words and word count
+	 * @param keyboard - Scanner, for keyboard input
+	 */
 	protected static void displayResults(Map<String, Integer> results, Scanner keyboard) {
 				
 		// sort results
